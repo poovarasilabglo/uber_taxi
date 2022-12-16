@@ -4,8 +4,6 @@ from django.contrib.auth.password_validation import validate_password
 from apps.user.models import MyUser
 
 
-
-
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
     required=True,
