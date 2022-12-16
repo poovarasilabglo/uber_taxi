@@ -37,10 +37,10 @@ class Driver(TimeStampedModel):
     vehicle = models.ForeignKey(Car, on_delete = models.CASCADE)
     passenger_location = models.ForeignKey('Location', on_delete = models.CASCADE)
     contact_info =models.CharField(max_length = 50)
-    status = models.CharField(max_length=100, choices = TRIP_STATUS_CHOICES, default = 1)
+    status = models.IntegerField(choices = TRIP_STATUS_CHOICES,default = 1)
     
     def __str__(self):
-         return '{} {}'.format(self.name,self.vehicle)
+         return '{} {} {}'.format(self.name,self.vehicle,self.passenger_location)
 
 
 class Location(models.Model):

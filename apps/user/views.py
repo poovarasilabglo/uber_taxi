@@ -15,11 +15,11 @@ from rest_framework.permissions import AllowAny
 
 class LoginView(views.APIView):
     def post(self, request):
-        a = request.data
-        if 'username' not in a or 'password' not in a:
+        data = request.data
+        if 'username' not in data or 'password' not in data:
             return Response({'msg': 'Credentials missing'}, status=status.HTTP_400_BAD_REQUEST)
-        username = a['username']
-        password = a['password']
+        username = data['username']
+        password = data['password']
         user = authenticate(request, username=username, password=password)
         print("dfcSDFdsf fsdfsdf",user)
         if user is not None:
@@ -29,11 +29,12 @@ class LoginView(views.APIView):
         return Response({'msg': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-class RegisterUserAPIView(generics.CreateAPIView):
+class RegisterUserAPIView(generics.ListCreateAPIView):
+    queryset = MyUser.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
-
+    
 class UserViewSet(viewsets.ModelViewSet):
     queryset = MyUser.objects.all()
     serializer_class = UserSerializer
