@@ -12,12 +12,13 @@ class RegisterSerializer(serializers.ModelSerializer):
     write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
     is_uber = serializers.BooleanField(default=False)
+    is_driver = serializers.BooleanField(default=False)
     is_passenger = serializers.BooleanField(default=False)
 
     class Meta:
         model = MyUser
         fields = ('username', 'password', 'password2',
-         'email','is_uber','is_passenger', 'first_name', 'last_name')
+         'email','is_uber','is_driver','is_passenger', 'first_name', 'last_name')
         extra_kwargs = {
         'first_name': {'required': True},
         'last_name': {'required': True}
@@ -30,10 +31,12 @@ class RegisterSerializer(serializers.ModelSerializer):
         return attrs
  
     def create(self, validated_data):
+        print("********", validate_password)
         user = MyUser.objects.create(
         username=validated_data['username'],
         email=validated_data['email'],
         is_uber = validated_data['is_uber'],
+        is_driver = validated_data['is_driver'],
         is_passenger = validated_data['is_passenger'],
         first_name=validated_data['first_name'],
         last_name=validated_data['last_name'])
