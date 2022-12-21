@@ -21,34 +21,19 @@ class TimeStampedModel(models.Model):
          abstract = True
 
 
-class Car(models.Model):
+class Driver(TimeStampedModel):
+    name = models.OneToOneField(MyUser,on_delete = models.CASCADE)
+    bio = models.FileField()
+    image = models.ImageField(upload_to = 'profilepicture/')
     car_brand = models.CharField(max_length = 50)
     number_plate = models.CharField(max_length = 20)
     seat_number = models.CharField(max_length = 20)
-    
-    def __str__(self):
-        return self.car_brand
-
-
-class Driver(TimeStampedModel):
-    name = models.OneToOneField(MyUser,on_delete = models.CASCADE)
-    bio = models.CharField(max_length = 100)
-    image = models.ImageField(upload_to = 'profilepicture/')
-    vehicle = models.ForeignKey(Car, on_delete = models.CASCADE)
-    passenger_location = models.ForeignKey('Location', on_delete = models.CASCADE)
     contact_info =models.CharField(max_length = 50)
-    status = models.IntegerField(choices = TRIP_STATUS_CHOICES,default = 1)
+    
     
     def __str__(self):
-         return '{} {} {}'.format(self.name,self.vehicle,self.passenger_location)
+        return '{}'.format(self.car_brand)
 
-
-class Location(models.Model):
-    pickup_location = models.CharField(max_length = 100)
-    dropoff_location = models.CharField(max_length = 100)
-
-    def __str__(self):
-        return self.pickup_location
 
 
 
