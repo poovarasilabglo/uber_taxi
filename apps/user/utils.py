@@ -7,7 +7,13 @@ def get_tokens_for_user(user):
     return {
         'refresh': str(refresh),
         'access': str(refresh.access_token),
+        'user_id':str(user.id),
         'user_type': str(role),
+        'username':str(user),
+        'user_email':str(user.email),
+        'is_staff':str(user.is_staff),
+        'is_uber':str(user.is_uber),
+        'is_passenger':str(user.is_passenger)
     }
 
 
